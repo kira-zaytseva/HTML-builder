@@ -1,12 +1,8 @@
-const { join } = require('path')
-const { open } = require('node:fs/promises');
+const { join } = require('path');
+const { createReadStream } = require('node:fs');
   
-(async () => {
-    const file = await open(join(__dirname, './text.txt'));
-    
-    for await (const chunk of file.createReadStream({encoding: 'utf-8'}))
+(async () => {   
+    for await (const chunk of createReadStream(join(__dirname, './text.txt'),{encoding: 'utf-8'}))
       console.log(chunk);
-
-    await file.close();
 })();
 
